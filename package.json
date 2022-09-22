@@ -1,0 +1,19 @@
+{
+  "name": "mmm-hk-observatory",
+  "version": "1.0.0",
+  "description": "",
+  "main": "MMM-HK-Observatory.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Infin1te2021/MMM-HK-Observatory.git"
+  },
+  "author": "James Zhang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Infin1te2021/MMM-HK-Observatory/issues"
+  },
+  "homepage": "https://github.com/Infin1te2021/MMM-HK-Observatory#readme"
+}
