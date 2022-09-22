@@ -1,0 +1,250 @@
+{
+    "generalSituation": "受东北季候风补充影响，周末期间华南沿岸地区风势颇大。而位于菲律宾以东海域的热带气旋会在未来一两日大致移向吕宋北部一带，并有机会在下周初至中期横过南海中至北部，同时受东北季候风的共同影响下，广东沿岸风势仍然颇大及有骤雨。此外，位于西北太平洋的热带气旋会在未来一两日横过日本以南海域。",
+    "weatherForecast": [
+        {
+            "forecastDate": "20220923",
+            "week": "星期五",
+            "forecastWind": "东至东北风4级，稍后5级。",
+            "forecastWeather": "部分时间有阳光，有一两阵骤雨。",
+            "forecastMaxtemp": {
+                "value": 32,
+                "unit": "C"
+            },
+            "forecastMintemp": {
+                "value": 27,
+                "unit": "C"
+            },
+            "forecastMaxrh": {
+                "value": 90,
+                "unit": "percent"
+            },
+            "forecastMinrh": {
+                "value": 65,
+                "unit": "percent"
+            },
+            "ForecastIcon": 53,
+            "PSR": "低"
+        },
+        {
+            "forecastDate": "20220924",
+            "week": "星期六",
+            "forecastWind": "东风4至5级，离岸间中6级。",
+            "forecastWeather": "短暂时间有阳光，有几阵骤雨。",
+            "forecastMaxtemp": {
+                "value": 31,
+                "unit": "C"
+            },
+            "forecastMintemp": {
+                "value": 27,
+                "unit": "C"
+            },
+            "forecastMaxrh": {
+                "value": 95,
+                "unit": "percent"
+            },
+            "forecastMinrh": {
+                "value": 60,
+                "unit": "percent"
+            },
+            "ForecastIcon": 54,
+            "PSR": "低"
+        },
+        {
+            "forecastDate": "20220925",
+            "week": "星期日",
+            "forecastWind": "东风4至5级，离岸间中6级。",
+            "forecastWeather": "部分时间有阳光，局部地区有骤雨。",
+            "forecastMaxtemp": {
+                "value": 31,
+                "unit": "C"
+            },
+            "forecastMintemp": {
+                "value": 27,
+                "unit": "C"
+            },
+            "forecastMaxrh": {
+                "value": 90,
+                "unit": "percent"
+            },
+            "forecastMinrh": {
+                "value": 60,
+                "unit": "percent"
+            },
+            "ForecastIcon": 53,
+            "PSR": "低"
+        },
+        {
+            "forecastDate": "20220926",
+            "week": "星期一",
+            "forecastWind": "东至东北风4至5级，离岸间中6级。",
+            "forecastWeather": "大致多云，有几阵骤雨。",
+            "forecastMaxtemp": {
+                "value": 30,
+                "unit": "C"
+            },
+            "forecastMintemp": {
+                "value": 26,
+                "unit": "C"
+            },
+            "forecastMaxrh": {
+                "value": 95,
+                "unit": "percent"
+            },
+            "forecastMinrh": {
+                "value": 75,
+                "unit": "percent"
+            },
+            "ForecastIcon": 62,
+            "PSR": "中低"
+        },
+        {
+            "forecastDate": "20220927",
+            "week": "星期二",
+            "forecastWind": "东风4至5级，初时离岸间中6级。",
+            "forecastWeather": "大致多云，有几阵骤雨。",
+            "forecastMaxtemp": {
+                "value": 30,
+                "unit": "C"
+            },
+            "forecastMintemp": {
+                "value": 26,
+                "unit": "C"
+            },
+            "forecastMaxrh": {
+                "value": 95,
+                "unit": "percent"
+            },
+            "forecastMinrh": {
+                "value": 75,
+                "unit": "percent"
+            },
+            "ForecastIcon": 62,
+            "PSR": "中低"
+        },
+        {
+            "forecastDate": "20220928",
+            "week": "星期三",
+            "forecastWind": "东风4级，初时离岸5级。",
+            "forecastWeather": "部分时间有阳光，有几阵骤雨。",
+            "forecastMaxtemp": {
+                "value": 32,
+                "unit": "C"
+            },
+            "forecastMintemp": {
+                "value": 27,
+                "unit": "C"
+            },
+            "forecastMaxrh": {
+                "value": 95,
+                "unit": "percent"
+            },
+            "forecastMinrh": {
+                "value": 70,
+                "unit": "percent"
+            },
+            "ForecastIcon": 53,
+            "PSR": "低"
+        },
+        {
+            "forecastDate": "20220929",
+            "week": "星期四",
+            "forecastWind": "东风4级。",
+            "forecastWeather": "大致天晴，但有一两阵骤雨。",
+            "forecastMaxtemp": {
+                "value": 32,
+                "unit": "C"
+            },
+            "forecastMintemp": {
+                "value": 27,
+                "unit": "C"
+            },
+            "forecastMaxrh": {
+                "value": 90,
+                "unit": "percent"
+            },
+            "forecastMinrh": {
+                "value": 70,
+                "unit": "percent"
+            },
+            "ForecastIcon": 53,
+            "PSR": "低"
+        },
+        {
+            "forecastDate": "20220930",
+            "week": "星期五",
+            "forecastWind": "东风4级。",
+            "forecastWeather": "短暂时间有阳光，有一两阵骤雨。",
+            "forecastMaxtemp": {
+                "value": 31,
+                "unit": "C"
+            },
+            "forecastMintemp": {
+                "value": 27,
+                "unit": "C"
+            },
+            "forecastMaxrh": {
+                "value": 90,
+                "unit": "percent"
+            },
+            "forecastMinrh": {
+                "value": 70,
+                "unit": "percent"
+            },
+            "ForecastIcon": 54,
+            "PSR": "低"
+        },
+        {
+            "forecastDate": "20221001",
+            "week": "星期六",
+            "forecastWind": "东风4至5级。",
+            "forecastWeather": "短暂时间有阳光，有几阵骤雨。",
+            "forecastMaxtemp": {
+                "value": 31,
+                "unit": "C"
+            },
+            "forecastMintemp": {
+                "value": 27,
+                "unit": "C"
+            },
+            "forecastMaxrh": {
+                "value": 95,
+                "unit": "percent"
+            },
+            "forecastMinrh": {
+                "value": 70,
+                "unit": "percent"
+            },
+            "ForecastIcon": 54,
+            "PSR": "低"
+        }
+    ],
+    "updateTime": "2022-09-22T16:30:00+08:00",
+    "seaTemp": {
+        "place": "北角",
+        "value": 28,
+        "unit": "C",
+        "recordTime": "2022-09-22T14:00:00+08:00"
+    },
+    "soilTemp": [
+        {
+            "place": "香港天文台",
+            "value": 30.2,
+            "unit": "C",
+            "recordTime": "2022-09-22T07:00:00+08:00",
+            "depth": {
+                "unit": "metre",
+                "value": 0.5
+            }
+        },
+        {
+            "place": "香港天文台",
+            "value": 30.4,
+            "unit": "C",
+            "recordTime": "2022-09-22T07:00:00+08:00",
+            "depth": {
+                "unit": "metre",
+                "value": 1
+            }
+        }
+    ]
+}

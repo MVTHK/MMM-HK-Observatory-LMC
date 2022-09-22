@@ -1,0 +1,278 @@
+{
+    "rainfall": {
+        "data": [
+            {
+                "unit": "mm",
+                "place": "中西区",
+                "max": 0,
+                "main": "FALSE"
+            },
+            {
+                "unit": "mm",
+                "place": "东区",
+                "max": 0,
+                "main": "FALSE"
+            },
+            {
+                "unit": "mm",
+                "place": "葵青",
+                "max": 0,
+                "main": "FALSE"
+            },
+            {
+                "unit": "mm",
+                "place": "离岛区",
+                "max": 0,
+                "main": "FALSE"
+            },
+            {
+                "unit": "mm",
+                "place": "北区",
+                "max": 0,
+                "main": "FALSE"
+            },
+            {
+                "unit": "mm",
+                "place": "西贡",
+                "max": 0,
+                "main": "FALSE"
+            },
+            {
+                "unit": "mm",
+                "place": "沙田",
+                "max": 0,
+                "main": "FALSE"
+            },
+            {
+                "unit": "mm",
+                "place": "南区",
+                "max": 0,
+                "main": "FALSE"
+            },
+            {
+                "unit": "mm",
+                "place": "大埔",
+                "max": 0,
+                "main": "FALSE"
+            },
+            {
+                "unit": "mm",
+                "place": "荃湾",
+                "max": 0,
+                "main": "FALSE"
+            },
+            {
+                "unit": "mm",
+                "place": "屯门",
+                "max": 0,
+                "main": "FALSE"
+            },
+            {
+                "unit": "mm",
+                "place": "湾仔",
+                "max": 0,
+                "main": "FALSE"
+            },
+            {
+                "unit": "mm",
+                "place": "元朗",
+                "max": 0,
+                "main": "FALSE"
+            },
+            {
+                "unit": "mm",
+                "place": "油尖旺",
+                "max": 0,
+                "main": "FALSE"
+            },
+            {
+                "unit": "mm",
+                "place": "深水埗",
+                "max": 0,
+                "main": ""
+            },
+            {
+                "unit": "mm",
+                "place": "九龙城",
+                "max": 0,
+                "main": ""
+            },
+            {
+                "unit": "mm",
+                "place": "黄大仙",
+                "max": 0,
+                "main": "FALSE"
+            },
+            {
+                "unit": "mm",
+                "place": "观塘",
+                "max": 0,
+                "main": "FALSE"
+            }
+        ],
+        "startTime": "2022-09-22T23:45:00+08:00",
+        "endTime": "2022-09-23T00:45:00+08:00"
+    },
+    "warningMessage": "",
+    "icon": [
+        77
+    ],
+    "iconUpdateTime": "2022-09-22T18:00:00+08:00",
+    "uvindex": "",
+    "updateTime": "2022-09-23T01:02:00+08:00",
+    "temperature": {
+        "data": [
+            {
+                "place": "京士柏",
+                "value": 26,
+                "unit": "C"
+            },
+            {
+                "place": "香港天文台",
+                "value": 28,
+                "unit": "C"
+            },
+            {
+                "place": "黄竹坑",
+                "value": 25,
+                "unit": "C"
+            },
+            {
+                "place": "打鼓岭",
+                "value": 25,
+                "unit": "C"
+            },
+            {
+                "place": "流浮山",
+                "value": 25,
+                "unit": "C"
+            },
+            {
+                "place": "大埔",
+                "value": 26,
+                "unit": "C"
+            },
+            {
+                "place": "沙田",
+                "value": 26,
+                "unit": "C"
+            },
+            {
+                "place": "屯门",
+                "value": 26,
+                "unit": "C"
+            },
+            {
+                "place": "将军澳",
+                "value": 25,
+                "unit": "C"
+            },
+            {
+                "place": "西贡",
+                "value": 27,
+                "unit": "C"
+            },
+            {
+                "place": "长洲",
+                "value": 26,
+                "unit": "C"
+            },
+            {
+                "place": "赤鱲角",
+                "value": 28,
+                "unit": "C"
+            },
+            {
+                "place": "青衣",
+                "value": 27,
+                "unit": "C"
+            },
+            {
+                "place": "石岗",
+                "value": 25,
+                "unit": "C"
+            },
+            {
+                "place": "荃湾可观",
+                "value": 24,
+                "unit": "C"
+            },
+            {
+                "place": "荃湾城门谷",
+                "value": 24,
+                "unit": "C"
+            },
+            {
+                "place": "香港公园",
+                "value": 27,
+                "unit": "C"
+            },
+            {
+                "place": "筲箕湾",
+                "value": 26,
+                "unit": "C"
+            },
+            {
+                "place": "九龙城",
+                "value": 26,
+                "unit": "C"
+            },
+            {
+                "place": "跑马地",
+                "value": 27,
+                "unit": "C"
+            },
+            {
+                "place": "黄大仙",
+                "value": 26,
+                "unit": "C"
+            },
+            {
+                "place": "赤柱",
+                "value": 27,
+                "unit": "C"
+            },
+            {
+                "place": "观塘",
+                "value": 26,
+                "unit": "C"
+            },
+            {
+                "place": "深水埗",
+                "value": 27,
+                "unit": "C"
+            },
+            {
+                "place": "启德跑道公园",
+                "value": 27,
+                "unit": "C"
+            },
+            {
+                "place": "元朗公园",
+                "value": 25,
+                "unit": "C"
+            },
+            {
+                "place": "大美督",
+                "value": 26,
+                "unit": "C"
+            }
+        ],
+        "recordTime": "2022-09-23T01:00:00+08:00"
+    },
+    "tcmessage": "",
+    "mintempFrom00To09": "",
+    "rainfallFrom00To12": "",
+    "rainfallLastMonth": "",
+    "rainfallJanuaryToLastMonth": "",
+    "humidity": {
+        "recordTime": "2022-09-23T01:00:00+08:00",
+        "data": [
+            {
+                "unit": "percent",
+                "value": 77,
+                "place": "香港天文台"
+            }
+        ]
+    }
+}
