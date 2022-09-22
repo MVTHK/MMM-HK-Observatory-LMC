@@ -1,4 +1,3 @@
-const { set } = require('lodash');
 const NodeHelper = require('node_helper');
 const request = require('request');
 const Log = require('../../js/logger.js');
