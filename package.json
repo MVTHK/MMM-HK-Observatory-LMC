@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Infin1te2021/MMM-HK-Observatory/issues"
   },
-  "homepage": "https://github.com/Infin1te2021/MMM-HK-Observatory#readme"
+  "homepage": "https://github.com/Infin1te2021/MMM-HK-Observatory#readme",
+  "dependencies": {
+    "request": "^2.88.2"
+  }
 }
