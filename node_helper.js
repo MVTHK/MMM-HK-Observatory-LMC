@@ -9,7 +9,7 @@ module.exports = NodeHelper.create({
     },
 
 	socketNotificationReceived: function(notification, payload) {
-        if (notification == "SET_CONFIG") {
+        if (notification === "SET_CONFIG") {
             this.config = payload;
         }
 
@@ -37,7 +37,7 @@ module.exports = NodeHelper.create({
 
 			self.sendSocketNotification("DATA", {generalSituation: generalSituation, weatherForecast: weatherForecast, updateTime: updateTime});
 		});
-
+		
 		setTimeout(this.getData.bind(this), this.config.updateInterval);
 	}
 })
