@@ -1,8 +1,14 @@
 .MMM-HKO {
-  font-size: 16px !important;
-  line-height: 1.4 !important;
+	font-size: 16px !important;
+	line-height: 1.4 !important;
 }
 
 .MMM-HKO .position {
-  width: 25px;
+	width: 25px;
+}
+
+.MMM-HKO .footer {
+	text-align: right;
+	font-size: small;
+	border-top: 1px solid var(--color-text-dimmed);
 }

@@ -5,14 +5,16 @@ Module.register("MMM-HK-Observatory", {
 	defaults: {
 		header: "MMM-HK-Observatory",
 		reloadInterval: 1 * 60 * 1000, //every 1 minute
-		updateInterval: 5 * 1000, // every 15 seconds
+		updateInterval: 60 * 1000, // every 60 seconds
+        fade: true,
+        fadePoint: 0.75,
+        showFooter: true,
 	},
 
 	start: function() {
 		Log.info("Start module: " + this.name);
 		this.loaded = false;
 		this.fetchedData = null;
-
 		this.sendSocketNotification("SET_CONFIG", this.config);
 	},
 
@@ -26,7 +28,7 @@ Module.register("MMM-HK-Observatory", {
         } else {
             return this.config.header + " " + this.fetchedData.updateTime;
         }
-    },
+	},
 
 	getDom: function () {
 		const self = this;
@@ -46,25 +48,128 @@ Module.register("MMM-HK-Observatory", {
             return wrapper;
         }
 
+		/*
 		if (this.loaded) {
 			wrapper.innerHTML = this.fetchedData.generalSituation;
-			wrapper.className = "light small dimmed";
+			wrapper.className = "light small bold dimmed";
 			return wrapper;
 		}
+		*/
 
+		const table = document.createElement("weatherForecastTable");
+		table.className = "weatherForecastTable"
+
+		// Create table header row
+		table.appendChild(self.createHeader());
+
+		let currentFadeStep = 0;
+        let startFade;
+        let fadeSteps;
+
+        if (this.config.fade && this.config.fadePoint < 1) {
+            if (this.config.fadePoint < 0) {
+                this.config.fadePoint = 0;
+            }
+            startFade = this.fetchedData.weatherForecast.length * this.config.fadePoint;
+            fadeSteps = this.fetchedData.weatherForecast.length - startFade;
+
+        }
+
+		let rowElement = null;
+        this.fetchedData.weatherForecast.forEach((element, index) => {
+            rowElement = self.createDataRow(element);
+            if (this.config.fade && index >= startFade) {
+                currentFadeStep = index - startFade;
+                rowElement.style.opacity = 1 - (1 / fadeSteps) * currentFadeStep;
+            }
+            table.appendChild(rowElement);
+        });
+
+        // Create footer
+        table.appendChild(self.createFooter());
+
+        wrapper.appendChild(table);
+
+        // Return the wrapper to the dom.
+        return wrapper;
+    },
+
+	createHeader: function() {
+        const tableHeader = document.createElement("tr");
+        tableHeader.className = "header tableHeaderRow";
+
+		// Forecast date
+		const forecastDateHeader = document.createElement("th");
+		forecastDateHeader.className = "header forecastDateHeader forecastDate";
+        forecastDateHeader.innerHTML = "Forecast Date";
+
+		// Forecast Wind
+		const forecastWindHeader = document.createElement("th");
+        forecastWindHeader.className = "header forecastWindHeader forecastWind";
+        forecastWindHeader.innerHTML = "Forecast Wind";
+
+		// Forecast Weather
+		const forecastWeatherHeader = document.createElement("th");
+        forecastWeatherHeader.className = "header forecastWeatherHeader forecastWeather";
+        forecastWeatherHeader.innerHTML = "Forecast Weather";
+
+		tableHeader.appendChild(forecastDateHeader);
+		tableHeader.appendChild(forecastWindHeader);
+		tableHeader.appendChild(forecastWeatherHeader);
+
+		return tableHeader;
+	},
+
+	createDataRow: function(data){
+
+		const tableDataRow = document.createElement("tr");
+        tableDataRow.className = "tableDataRow";
+
+		const date  = document.createElement("td");
+		date.className = "forecastDateData forecastDate";
+		date.innerHTML = data.forecastDate;
+
+		const wind = document.createElement("td");
+        wind.className = "windData wind";
+        wind.innerHTML = data.forecastWind;
+
+		const weather = document.createElement("td");
+        weather.className = "weatherData weather";
+        weather.innerHTML = data.forecastWeather;
+
+		tableDataRow.appendChild(date);
+        tableDataRow.appendChild(wind);
+        tableDataRow.appendChild(weather);
+
+		return tableDataRow
 
 	},
 
+	createFooter: function() {
+        const footerRow = document.createElement("tr");
+        footerRow.className = "footerRow";
+
+        const footer = document.createElement("td");
+        footer.className = "footer";
+        footer.setAttribute("colspan", "5");
+        footer.innerHTML = "UPDATED" + ": " + moment().format("dd, DD.MM.YYYY, HH:mm[h]");
+
+        footerRow.appendChild(footer);
+
+        return footerRow;
+    },
+
 	socketNotificationReceived: function(notification, payload) {
         if (notification === "DATA") {
-			var updateInterval = this.config.updateInterval
+			var animationSpped = this.config.animationSpeed;
 			console.log(this.loaded)
 			if (this.loaded) {
-				updateInterval = 30 * 1000
+				animationSpped = 0;
 			}
 			this.fetchedData = payload;
             this.loaded = true;
-			this.updateDom(updateInterval);
+			this.updateDom(animationSpped);
+
         } else if (notification === "ERROR") {
             // TODO: Update front-end to display specific error.
         }
