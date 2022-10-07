@@ -20,16 +20,12 @@ module.exports = NodeHelper.create({
 	const self = this;
 	Log.info(this.name + ": Fetching data for Hong Kong Observatory");
 
-	const nineDayWeatherForecastURL =
-		"https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=fnd&lang=en";
+	const nineDayWeatherForecastURL = "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=fnd&lang=en";
 
 	request(nineDayWeatherForecastURL, function (error, response, body) {
 		if (error || response.statusCode !== 200) {
 		Log.debug(
-			this.name +
-			" :Error getting	9-day Weather Forecast(" +
-			response.statusCode +
-			")"
+			this.name + " :Error getting 9-day Weather Forecast(" + response.statusCode + ")"
 		);
 		self.sendSocketNotification("ERROR", response.statusCode);
 		return;
