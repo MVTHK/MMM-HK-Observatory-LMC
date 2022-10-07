@@ -24,11 +24,9 @@ module.exports = NodeHelper.create({
 
 	request(nineDayWeatherForecastURL, function (error, response, body) {
 		if (error || response.statusCode !== 200) {
-		Log.debug(
-			this.name + " :Error getting 9-day Weather Forecast(" + response.statusCode + ")"
-		);
-		self.sendSocketNotification("ERROR", response.statusCode);
-		return;
+			Log.debug(this.name + " :Error getting 9-day Weather Forecast(" + response.statusCode + ")");
+			self.sendSocketNotification("ERROR", response.statusCode);
+			return;
 		}
 
 		const generalSituation = JSON.parse(body).generalSituation;

@@ -40,13 +40,13 @@ Module.register("MMM-HK-Observatory", {
 			wrapper.innerHTML ="LOADING";
 			wrapper.className = "light small dimmed";
 			return wrapper;
-    }
+    	}
 
 		if (this.error) {
 			wrapper.innerHTML = "ERROR";
 			wrapper.className = "light small dimmed";
 			return wrapper;
-    }
+    	}
 
 		/*
 		if (this.loaded) {
@@ -96,29 +96,29 @@ Module.register("MMM-HK-Observatory", {
 
 	createIntro: function() {
 		const introRow = document.createElement("div");
-    introRow.className = "introSituation";
+    	introRow.className = "introSituation";
 		introRow.innerHTML = this.fetchedData.generalSituation;
 		return introRow;
 	},
 
 	createHeader: function() {
 		const tableHeader = document.createElement("tr");
-    tableHeader.className = "headerTableHeaderRow";
+    	tableHeader.className = "headerTableHeaderRow";
 
 		// Forecast date
 		const forecastDateHeader = document.createElement("th");
 		forecastDateHeader.className = "header forecastDateHeader forecastDate";
-    forecastDateHeader.innerHTML = "Forecast Date";
+    	forecastDateHeader.innerHTML = "Forecast Date";
 
 		// Forecast Wind
 		const forecastWindHeader = document.createElement("th");
-    forecastWindHeader.className = "header forecastWindHeader forecastWind";
-    forecastWindHeader.innerHTML = "Forecast Wind";
+    	forecastWindHeader.className = "header forecastWindHeader forecastWind";
+    	forecastWindHeader.innerHTML = "Forecast Wind";
 
 		// Forecast Weather
 		const forecastWeatherHeader = document.createElement("th");
-    forecastWeatherHeader.className = "header forecastWeatherHeader forecastWeather";
-    forecastWeatherHeader.innerHTML = "Forecast Weather";
+    	forecastWeatherHeader.className = "header forecastWeatherHeader forecastWeather";
+    	forecastWeatherHeader.innerHTML = "Forecast Weather";
 
 		tableHeader.appendChild(forecastDateHeader);
 		tableHeader.appendChild(forecastWindHeader);
@@ -147,7 +147,7 @@ Module.register("MMM-HK-Observatory", {
 
 		tableDataRow.appendChild(date);
 		tableDataRow.appendChild(wind);
-    tableDataRow.appendChild(weather);
+    	tableDataRow.appendChild(weather);
 
 		return tableDataRow
 	},
@@ -164,7 +164,7 @@ Module.register("MMM-HK-Observatory", {
 		footerRow.appendChild(footer);
 
 		return footerRow;
-  },
+  	},
 
 	socketNotificationReceived: function(notification, payload) {
 		if (notification === "DATA") {

@@ -16,6 +16,11 @@
 	border-top: 1px solid var(--color-text-dimmed);
 }
 
+.MMM-HKO th {
+	text-align: center;
+	border-top: 1px solid var(--color-text-dimmed);
+}
+
 .MMM-HKO .footer {
 	text-align: right;
 	font-size: small;
