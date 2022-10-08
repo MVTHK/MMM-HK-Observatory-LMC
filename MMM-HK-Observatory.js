@@ -5,7 +5,7 @@ Module.register("MMM-HK-Observatory", {
     defaults: {
         header: "MMM-HK-Observatory",
         reloadInterval: 1 * 60 * 1000, //every 1 minute
-        updateInterval: 60 * 1000, // every 60 seconds
+        updateInterval: 5 * 60 * 1000, // every 5 minute
         fade: true,
         fadePoint: 0.75,
         showFooter: true,
@@ -50,9 +50,9 @@ Module.register("MMM-HK-Observatory", {
 
         /*
         if (this.loaded) {
-            wrapper.innerHTML = this.fetchedData.generalSituation;
-            wrapper.className = "light small bold dimmed";
-            return wrapper;
+                wrapper.innerHTML = this.fetchedData.generalSituation;
+                wrapper.className = "light small bold dimmed";
+                return wrapper;
         }
         */
 
@@ -97,7 +97,7 @@ Module.register("MMM-HK-Observatory", {
     createIntro: function() {
         const introRow = document.createElement("div");
         introRow.className = "introSituation";
-        introRow.innerHTML = this.fetchedData.generalSituation;
+        introRow.innerHTML = "9-day Weather Forecast:" + "<br />" + this.fetchedData.generalSituation;
         return introRow;
     },
 
@@ -107,22 +107,28 @@ Module.register("MMM-HK-Observatory", {
 
         // Forecast date
         const forecastDateHeader = document.createElement("th");
-        forecastDateHeader.className = "header forecastDateHeader forecastDate";
+        forecastDateHeader.className = "forecastDateHeader";
         forecastDateHeader.innerHTML = "Forecast Date";
 
-        // Forecast Wind
-        const forecastWindHeader = document.createElement("th");
-        forecastWindHeader.className = "header forecastWindHeader forecastWind";
-        forecastWindHeader.innerHTML = "Forecast Wind";
+        // Forecast Icon
+        const forecastIconHeader = document.createElement("th");
+        forecastIconHeader.className = "forecastIconHeader";
+        forecastIconHeader.innerHTML = "";
 
-        // Forecast Weather
-        const forecastWeatherHeader = document.createElement("th");
-        forecastWeatherHeader.className = "header forecastWeatherHeader forecastWeather";
-        forecastWeatherHeader.innerHTML = "Forecast Weather";
+        // Forecast Temperature & Humidity
+        const forecastTempHumiHeader = document.createElement("th");
+        forecastTempHumiHeader.className = "forecastTempHumiHeader";
+        forecastTempHumiHeader.innerHTML = "Temperature & Humidity";
+
+        // Forecast Weather General Description
+        const forecastWeatherDescriptionHeader = document.createElement("th");
+        forecastWeatherDescriptionHeader.className = "ForecastWeatherHeader";
+        forecastWeatherDescriptionHeader.innerHTML = "Forecast Description";
 
         tableHeader.appendChild(forecastDateHeader);
-        tableHeader.appendChild(forecastWindHeader);
-        tableHeader.appendChild(forecastWeatherHeader);
+        tableHeader.appendChild(forecastIconHeader);
+        tableHeader.appendChild(forecastTempHumiHeader);
+        tableHeader.appendChild(forecastWeatherDescriptionHeader);
 
         return tableHeader;
     },
@@ -132,21 +138,28 @@ Module.register("MMM-HK-Observatory", {
         const tableDataRow = document.createElement("tr");
         tableDataRow.className = "tableDataRow";
 
-        const date  = document.createElement("td");
-        date.className = "forecastDateData forecastDate";
-        date.innerHTML = data.forecastDate;
+        const date = document.createElement("td");
+        date.className = "dateData";
+        date.innerHTML = moment(data.forecastDate).format("ll");
 
-        const wind = document.createElement("td");
-        wind.className = "windData wind";
-        wind.innerHTML = data.forecastWind;
+        const icon = document.createElement("td");
+        icon.className = "iconData"; 
+        let srclist = `https://www.hko.gov.hk/images/HKOWxIconOutline/pic${data.ForecastIcon}.png`
+        icon.innerHTML = `<img src=\ ${srclist} width=\"49px\" height=\"49px\">`;
+
+        const temphumi = document.createElement("td");
+        temphumi.className = "temphumiData";
+        temphumi.innerHTML = data.forecastMintemp.value + "-" + data.forecastMaxtemp.value + "°C" + "<br />" +
+                                                    data.forecastMinrh.value + "-" + data.forecastMaxrh.value + "%"; 
 
         const weather = document.createElement("td");
         weather.className = "weatherData weather";
-        weather.innerHTML = data.forecastWeather;
+        weather.innerHTML = data.forecastWind + "<br />" + data.forecastWeather;
 
 
         tableDataRow.appendChild(date);
-        tableDataRow.appendChild(wind);
+        tableDataRow.appendChild(icon);
+        tableDataRow.appendChild(temphumi);
         tableDataRow.appendChild(weather);
 
         return tableDataRow
@@ -160,25 +173,24 @@ Module.register("MMM-HK-Observatory", {
         footer.className = "footer";
         footer.setAttribute("colspan", "5");
         footer.innerHTML = "UPDATED" + ": " + moment().format("dd, DD.MM.YYYY, HH:mm[h]");
-
         footerRow.appendChild(footer);
 
         return footerRow;
-      },
+        },
 
     socketNotificationReceived: function(notification, payload) {
         if (notification === "DATA") {
-            var animationSpped = this.config.animationSpeed;
+            var animationSpeed = this.config.animationSpeed;
             console.log(this.loaded)
         if (this.loaded) {
-            animationSpped = 0;
+            animationSpeed = 0;
         }
         this.fetchedData = payload;
         this.loaded = true;
-        this.updateDom(animationSpped);
+        this.updateDom(animationSpeed);
 
         } else if (notification === "ERROR") {
-            // TODO: Update front-end to display specific error.
+                // TODO: Update front-end to display specific error.
         }
     },
 });
