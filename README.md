@@ -1,7 +1,7 @@
 # MMM-HK-Observatory
 
 <p style="text-align: center">
-    <a href="https://choosealicense.com/licenses/mit"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+    <a href="https://choosealicense.com/licenses/apache-2.0/"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
 </p>
 
 A module for [MagicMirror](https://github.com/MichMich/MagicMirror) displaying Hong Kong 9-day Weather Forecast.
@@ -58,7 +58,7 @@ Then add it to the modules array:
     modules: [
         {
             module: "MMM-HK-Observatory",
-            position: "top_right",
+            position: "top_center",
             config: {
                 animationSpeed: 2000,
                 updateInterval: 300000, // every 5 minute

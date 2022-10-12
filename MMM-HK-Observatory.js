@@ -57,11 +57,15 @@ Module.register("MMM-HK-Observatory", {
         */
 
         const table = document.createElement("weatherForecastTable");
-        table.className = "weatherForecastTable"
+        table.className = "weatherForecastTable";
         table.appendChild(self.createIntro());
 
-        // Create table header row
-        table.appendChild(self.createHeader());
+        // Create inner-table
+        const innertable = document.createElement("table");
+        innertable.className = "innerTable";
+
+        // Create table row and insert it into inner-table
+        innertable.appendChild(self.createHeader());
 
         let currentFadeStep = 0;
         let startFade;
@@ -82,8 +86,10 @@ Module.register("MMM-HK-Observatory", {
                 currentFadeStep = index - startFade;
                 rowElement.style.opacity = 1 - (1 / fadeSteps) * currentFadeStep;
             }
-            table.appendChild(rowElement);
+            innertable.appendChild(rowElement);
         });
+
+        table.appendChild(innertable)
 
         // Create footer
         table.appendChild(self.createFooter());
@@ -94,6 +100,7 @@ Module.register("MMM-HK-Observatory", {
         return wrapper;
     },
 
+    // Forecast general situation
     createIntro: function() {
         const introRow = document.createElement("div");
         introRow.className = "introSituation";
@@ -143,14 +150,14 @@ Module.register("MMM-HK-Observatory", {
         date.innerHTML = moment(data.forecastDate).format("ll");
 
         const icon = document.createElement("td");
-        icon.className = "iconData"; 
+        icon.className = "iconData";
         let srclist = `https://www.hko.gov.hk/images/HKOWxIconOutline/pic${data.ForecastIcon}.png`
         icon.innerHTML = `<img src=\ ${srclist} width=\"49px\" height=\"49px\">`;
 
         const temphumi = document.createElement("td");
         temphumi.className = "temphumiData";
         temphumi.innerHTML = data.forecastMintemp.value + "-" + data.forecastMaxtemp.value + "°C" + "<br />" +
-                                                    data.forecastMinrh.value + "-" + data.forecastMaxrh.value + "%"; 
+                                                    data.forecastMinrh.value + "-" + data.forecastMaxrh.value + "%";
 
         const weather = document.createElement("td");
         weather.className = "weatherData weather";
@@ -192,5 +199,12 @@ Module.register("MMM-HK-Observatory", {
         } else if (notification === "ERROR") {
                 // TODO: Update front-end to display specific error.
         }
+    },
+
+    remove: function() {
+        const myNode = document.getElementsByClassName("tableDataRow")
+        myNode.innerHTML = ''
+        console.log("remove successfully")
+        return myNode
     },
 });
