@@ -11,15 +11,12 @@
     text-align: left;
 }
 
-.MMM-HKO .headerTableHeaderRow{
-    text-align: left;
-    border-top: 1px solid var(--color-text-dimmed);
-}
-
 .MMM-HKO .headerTableHeaderRow {
+	position: static;
     text-align: center;
     border-top: 1px solid var(--color-text-dimmed);
 }
+
 
 .MMM-HKO .footer {
     text-align: right;

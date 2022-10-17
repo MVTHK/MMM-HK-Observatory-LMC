@@ -5,10 +5,9 @@ Module.register("MMM-HK-Observatory", {
     defaults: {
         header: "MMM-HK-Observatory",
         reloadInterval: 1 * 60 * 1000, //every 1 minute
-        updateInterval: 5 * 60 * 1000, // every 5 minute
-        fade: true,
-        fadePoint: 0.75,
+        updateInterval: 300000, // every 10 minute
         showFooter: true,
+        maxForecast: 4,
     },
 
     start: function() {
@@ -48,57 +47,53 @@ Module.register("MMM-HK-Observatory", {
             return wrapper;
         }
 
-        /*
-        if (this.loaded) {
-                wrapper.innerHTML = this.fetchedData.generalSituation;
-                wrapper.className = "light small bold dimmed";
-                return wrapper;
-        }
-        */
-
-        const table = document.createElement("weatherForecastTable");
-        table.className = "weatherForecastTable";
-        table.appendChild(self.createIntro());
+        this.table = document.createElement("weatherForecastTable");
+        this.table.className = "weatherForecastTable";
+        this.table.appendChild(self.createIntro());
 
         // Create inner-table
-        const innertable = document.createElement("table");
-        innertable.className = "innerTable";
+        this.innertable = document.createElement("table");
+        this.innertable.className = "innerTable";
 
         // Create table row and insert it into inner-table
-        innertable.appendChild(self.createHeader());
+        this.innertable.appendChild(self.createHeader());
 
-        let currentFadeStep = 0;
-        let startFade;
-        let fadeSteps;
-
-        if (this.config.fade && this.config.fadePoint < 1) {
-            if (this.config.fadePoint < 0) {
-                this.config.fadePoint = 0;
-            }
-            startFade = this.fetchedData.weatherForecast.length * this.config.fadePoint;
-            fadeSteps = this.fetchedData.weatherForecast.length - startFade;
+/*
+        if (this.config.maxForecast) {
+            this.fetchedData.weatherForecast = this.fetchedData.weatherForecast.slice(0, this.config.maxForecast);
         }
+*/
+		// Append row element --> Forecast, Temp&Hum, Description
 
-        let rowElement = null;
-        this.fetchedData.weatherForecast.forEach((element, index) => {
-            rowElement = self.createDataRow(element);
-            if (this.config.fade && index >= startFade) {
-                currentFadeStep = index - startFade;
-                rowElement.style.opacity = 1 - (1 / fadeSteps) * currentFadeStep;
-            }
-            innertable.appendChild(rowElement);
-        });
+		for (var i = 0; i < this.fetchedData.weatherForecast.length; i++){
+			rowElement = self.createDataRow(this.fetchedData.weatherForecast[i])
+			if (i < this.fetchedData.weatherForecast.slice(0, this.config.maxForecast).length){
+				rowElement.style.display = '';
+				this.innertable.appendChild(rowElement)
+			}
+			else{
+				this.innertable.appendChild(rowElement)
+			}
+		}
 
-        table.appendChild(innertable)
+        this.table.appendChild(this.innertable)
 
         // Create footer
-        table.appendChild(self.createFooter());
+        this.table.appendChild(self.createFooter());
 
-        wrapper.appendChild(table);
-
+        wrapper.appendChild(this.table);
+        this.table.addEventListener("click", this.tableClick.bind(this.innertable))
         // Return the wrapper to the dom.
         return wrapper;
     },
+
+    tableClick: function() {
+        const e = this.getElementsByTagName("tr");
+		for (var i = 5; i < e.length; i++) {
+			e[i].style.display = e[i].style.display ? "" : "none";
+		}
+    },
+
 
     // Forecast general situation
     createIntro: function() {
@@ -160,7 +155,8 @@ Module.register("MMM-HK-Observatory", {
                                                     data.forecastMinrh.value + "-" + data.forecastMaxrh.value + "%";
 
         const weather = document.createElement("td");
-        weather.className = "weatherData weather";
+		weather.className = "weatherData";
+		weather.style.cssText = "text-align: left";
         weather.innerHTML = data.forecastWind + "<br />" + data.forecastWeather;
 
 
@@ -168,7 +164,7 @@ Module.register("MMM-HK-Observatory", {
         tableDataRow.appendChild(icon);
         tableDataRow.appendChild(temphumi);
         tableDataRow.appendChild(weather);
-
+		tableDataRow.style.display = "none";
         return tableDataRow
     },
 
@@ -201,10 +197,4 @@ Module.register("MMM-HK-Observatory", {
         }
     },
 
-    remove: function() {
-        const myNode = document.getElementsByClassName("tableDataRow")
-        myNode.innerHTML = ''
-        console.log("remove successfully")
-        return myNode
-    },
 });
