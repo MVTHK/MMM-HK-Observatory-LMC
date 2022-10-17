@@ -1,0 +1,26 @@
+{
+    "details": [
+        {
+            "contents": [
+                "Tropical Cyclone Warning Bulletin",
+                "Here is the latest Tropical Cyclone Warning Bulletin issued by the Hong Kong Observatory.",
+                "The Strong Wind Signal, No. 3 is in force.",
+                "This means that winds with mean speeds of 41 to 62 kilometres per hour are expected.",
+                "At 7 p.m., Typhoon Nesat was estimated to be about 370 kilometres south-southeast of Hong Kong (near 19.2 degrees north 115.6 degrees east) and is forecast to move west-southwest at about 15 kilometres per hour across the northern part of the South China Sea.",
+                "Nesat will gradually depart from Hong Kong tonight. However, the northeast monsoon affecting southern China will strengthen gradually. Under the combined effect of the northeast monsoon and Nesat, local winds will remain generally strong, occasionally reaching gale force on high ground. The Strong Wind Signal, No. 3 will remain in force before 5 a.m. tomorrow. Unless local winds strengthen further, the chance of issuing the No. 8 Gale or Storm Signal is not high. Members of the public are reminded to take note of the latest weather information from the Observatory before departing tomorrow morning.",
+                "The outer rainbands associated with Nesat are bringing showers to the coast of Guangdong. Under the influence of the northeast monsoon, temperatures over the region will also fall appreciably.",
+                "Seas will be rough with swells. Members of the public are advised to stay away from the shoreline and not to engage in water sports.",
+                "In the past hour, the maximum sustained winds recorded at Tate's Cairn, Cheung Chau and Sai Kung were 77, 58 and 44 kilometres per hour with maximum gusts 94, 80 and 75 kilometres per hour respectively.",
+                "(Precautionary Announcements with No. 3 Signal)",
+                "1. Please complete precautions as soon as possible. Make sure objects likely to be blown away are securely fastened or taken indoors. Check if all windows and doors can be securely locked.",
+                "2. Seas are rough and there are swells. You are advised to stay away from the shoreline and low-lying areas, and not to engage in water sports.",
+                "3. Avoid staying in areas exposed to high winds. Drivers using highways and flyovers should be alert to violent gusts.",
+                "4. Small vessels not yet in typhoon shelters should seek shelter without delay. Use heavy anchors and check that all deck fittings are firmly fastened.",
+                "5. Listen to radio, watch TV or browse the Hong Kong Observatory's website and mobile app for the latest information on the tropical cyclone."
+            ],
+            "subtype": "TC3",
+            "warningStatementCode": "WTCSGNL",
+            "updateTime": "2022-10-17T18:55:00+08:00"
+        }
+    ]
+}
