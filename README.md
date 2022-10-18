@@ -57,11 +57,12 @@ Then add it to the modules array:
 ````javascript
     modules: [
         {
+           {
             module: "MMM-HK-Observatory",
+            header: "MMM-HK-Observatory",
             position: "top_center",
             config: {
-                animationSpeed: 2000,
-                updateInterval: 300000, // every 5 minute
+                maxForecast: 4,
                 showFooter: true,
             }
         }

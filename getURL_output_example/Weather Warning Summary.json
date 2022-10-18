@@ -1,0 +1,10 @@
+{
+    "WTCSGNL": {
+        "name": "Tropical Cyclone Warning Signal",
+        "code": "TC3",
+        "actionCode": "ISSUE",
+        "type": "Strong Wind Signal No. 3",
+        "issueTime": "2022-10-17T11:30:00+08:00",
+        "updateTime": "2022-10-17T11:30:00+08:00"
+    }
+}

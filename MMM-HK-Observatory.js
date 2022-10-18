@@ -5,10 +5,9 @@ Module.register("MMM-HK-Observatory", {
     defaults: {
         header: "MMM-HK-Observatory",
         reloadInterval: 1 * 60 * 1000, //every 1 minute
-        updateInterval: 5 * 60 * 1000, // every 5 minute
-        fade: true,
-        fadePoint: 0.75,
+        updateInterval: 300000, // every 10 minute
         showFooter: true,
+        maxForecast: 4,
     },
 
     start: function() {
@@ -48,15 +47,7 @@ Module.register("MMM-HK-Observatory", {
             return wrapper;
         }
 
-        /*
-        if (this.loaded) {
-                wrapper.innerHTML = this.fetchedData.generalSituation;
-                wrapper.className = "light small bold dimmed";
-                return wrapper;
-        }
-        */
-
-        const table = document.createElement("weatherForecastTable");
+        const table = document.createElement("div");
         table.className = "weatherForecastTable";
         table.appendChild(self.createIntro());
 
@@ -67,27 +58,19 @@ Module.register("MMM-HK-Observatory", {
         // Create table row and insert it into inner-table
         innertable.appendChild(self.createHeader());
 
-        let currentFadeStep = 0;
-        let startFade;
-        let fadeSteps;
+		const maxforecastnum = this.config.maxForecast
 
-        if (this.config.fade && this.config.fadePoint < 1) {
-            if (this.config.fadePoint < 0) {
-                this.config.fadePoint = 0;
-            }
-            startFade = this.fetchedData.weatherForecast.length * this.config.fadePoint;
-            fadeSteps = this.fetchedData.weatherForecast.length - startFade;
-        }
-
-        let rowElement = null;
-        this.fetchedData.weatherForecast.forEach((element, index) => {
-            rowElement = self.createDataRow(element);
-            if (this.config.fade && index >= startFade) {
-                currentFadeStep = index - startFade;
-                rowElement.style.opacity = 1 - (1 / fadeSteps) * currentFadeStep;
-            }
-            innertable.appendChild(rowElement);
-        });
+		// Append row element --> Forecast, Temp&Hum, Description
+		for (var i = 0; i < this.fetchedData.weatherForecast.length; i++){
+			rowElement = self.createDataRow(this.fetchedData.weatherForecast[i])
+			if (i < this.fetchedData.weatherForecast.slice(0, maxforecastnum).length){
+				rowElement.style.display = '';
+				innertable.appendChild(rowElement)
+			}
+			else{
+				innertable.appendChild(rowElement)
+			}
+		}
 
         table.appendChild(innertable)
 
@@ -95,6 +78,13 @@ Module.register("MMM-HK-Observatory", {
         table.appendChild(self.createFooter());
 
         wrapper.appendChild(table);
+
+        table.addEventListener("click", function() {
+			const innertabletrElement = this.getElementsByTagName("tr");
+			for (var i = maxforecastnum + 1; i < innertabletrElement.length; i++) {
+				innertabletrElement[i].style.display = innertabletrElement[i].style.display ? "" : "none";
+			}
+		})
 
         // Return the wrapper to the dom.
         return wrapper;
@@ -160,7 +150,8 @@ Module.register("MMM-HK-Observatory", {
                                                     data.forecastMinrh.value + "-" + data.forecastMaxrh.value + "%";
 
         const weather = document.createElement("td");
-        weather.className = "weatherData weather";
+		weather.className = "weatherData";
+		weather.style.cssText = "text-align: left";
         weather.innerHTML = data.forecastWind + "<br />" + data.forecastWeather;
 
 
@@ -168,7 +159,7 @@ Module.register("MMM-HK-Observatory", {
         tableDataRow.appendChild(icon);
         tableDataRow.appendChild(temphumi);
         tableDataRow.appendChild(weather);
-
+		tableDataRow.style.display = "none";
         return tableDataRow
     },
 
@@ -188,23 +179,16 @@ Module.register("MMM-HK-Observatory", {
     socketNotificationReceived: function(notification, payload) {
         if (notification === "DATA") {
             var animationSpeed = this.config.animationSpeed;
-            console.log(this.loaded)
-        if (this.loaded) {
-            animationSpeed = 0;
-        }
-        this.fetchedData = payload;
-        this.loaded = true;
-        this.updateDom(animationSpeed);
+            if (this.loaded) {
+                animationSpeed = 0;
+            }
+            this.fetchedData = payload;
+            this.loaded = true;
+            this.updateDom(animationSpeed);
 
         } else if (notification === "ERROR") {
                 // TODO: Update front-end to display specific error.
         }
     },
 
-    remove: function() {
-        const myNode = document.getElementsByClassName("tableDataRow")
-        myNode.innerHTML = ''
-        console.log("remove successfully")
-        return myNode
-    },
 });
