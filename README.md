@@ -58,13 +58,13 @@ Then add it to the modules array:
     modules: [
         {
            {
-			module: "MMM-HK-Observatory",
-			header: "MMM-HK-Observatory",
-			position: "top_center",
-			config: {
-				maxForecast: 4,
-				showFooter: true,
-			}
+            module: "MMM-HK-Observatory",
+            header: "MMM-HK-Observatory",
+            position: "top_center",
+            config: {
+                maxForecast: 4,
+                showFooter: true,
+            }
         }
     ]
 ````
