@@ -47,53 +47,48 @@ Module.register("MMM-HK-Observatory", {
             return wrapper;
         }
 
-        this.table = document.createElement("weatherForecastTable");
-        this.table.className = "weatherForecastTable";
-        this.table.appendChild(self.createIntro());
+        const table = document.createElement("div");
+        table.className = "weatherForecastTable";
+        table.appendChild(self.createIntro());
 
         // Create inner-table
-        this.innertable = document.createElement("table");
-        this.innertable.className = "innerTable";
+        const innertable = document.createElement("table");
+        innertable.className = "innerTable";
 
         // Create table row and insert it into inner-table
-        this.innertable.appendChild(self.createHeader());
+        innertable.appendChild(self.createHeader());
 
-/*
-        if (this.config.maxForecast) {
-            this.fetchedData.weatherForecast = this.fetchedData.weatherForecast.slice(0, this.config.maxForecast);
-        }
-*/
+		const maxforecastnum = this.config.maxForecast
+
 		// Append row element --> Forecast, Temp&Hum, Description
-
 		for (var i = 0; i < this.fetchedData.weatherForecast.length; i++){
 			rowElement = self.createDataRow(this.fetchedData.weatherForecast[i])
-			if (i < this.fetchedData.weatherForecast.slice(0, this.config.maxForecast).length){
+			if (i < this.fetchedData.weatherForecast.slice(0, maxforecastnum).length){
 				rowElement.style.display = '';
-				this.innertable.appendChild(rowElement)
+				innertable.appendChild(rowElement)
 			}
 			else{
-				this.innertable.appendChild(rowElement)
+				innertable.appendChild(rowElement)
 			}
 		}
 
-        this.table.appendChild(this.innertable)
+        table.appendChild(innertable)
 
         // Create footer
-        this.table.appendChild(self.createFooter());
+        table.appendChild(self.createFooter());
 
-        wrapper.appendChild(this.table);
-        this.table.addEventListener("click", this.tableClick.bind(this.innertable))
+        wrapper.appendChild(table);
+
+        table.addEventListener("click", function() {
+			const innertabletrElement = this.getElementsByTagName("tr");
+			for (var i = maxforecastnum + 1; i < innertabletrElement.length; i++) {
+				innertabletrElement[i].style.display = innertabletrElement[i].style.display ? "" : "none";
+			}
+		})
+
         // Return the wrapper to the dom.
         return wrapper;
     },
-
-    tableClick: function() {
-        const e = this.getElementsByTagName("tr");
-		for (var i = 5; i < e.length; i++) {
-			e[i].style.display = e[i].style.display ? "" : "none";
-		}
-    },
-
 
     // Forecast general situation
     createIntro: function() {
@@ -184,13 +179,12 @@ Module.register("MMM-HK-Observatory", {
     socketNotificationReceived: function(notification, payload) {
         if (notification === "DATA") {
             var animationSpeed = this.config.animationSpeed;
-            console.log(this.loaded)
-        if (this.loaded) {
-            animationSpeed = 0;
-        }
-        this.fetchedData = payload;
-        this.loaded = true;
-        this.updateDom(animationSpeed);
+            if (this.loaded) {
+                animationSpeed = 0;
+            }
+            this.fetchedData = payload;
+            this.loaded = true;
+            this.updateDom(animationSpeed);
 
         } else if (notification === "ERROR") {
                 // TODO: Update front-end to display specific error.
