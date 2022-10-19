@@ -59,20 +59,20 @@ Module.register("MMM-HK-Observatory", {
         // Create table row and insert it into inner-table
         innertable.appendChild(self.createHeader());
 
-		const maxforecastnum = this.config.maxForecast
+        const maxforecastnum = this.config.maxForecast
         let maxforecastnumCopy = maxforecastnum
 
-		// Append row element --> Forecast, Temp&Hum, Description
-		for (var i = 0; i < this.fetchedData.weatherForecast.length; i++){
-			rowElement = self.createDataRow(this.fetchedData.weatherForecast[i])
-			if (i < this.fetchedData.weatherForecast.slice(0, maxforecastnum).length){
-				rowElement.style.display = '';
-				innertable.appendChild(rowElement)
-			}
-			else{
-				innertable.appendChild(rowElement)
-			}
-		}
+        // Append row element --> Forecast, Temp&Hum, Description
+        for (var i = 0; i < this.fetchedData.weatherForecast.length; i++){
+            rowElement = self.createDataRow(this.fetchedData.weatherForecast[i])
+            if (i < this.fetchedData.weatherForecast.slice(0, maxforecastnum).length){
+                rowElement.style.display = '';
+                innertable.appendChild(rowElement)
+            }
+            else{
+                innertable.appendChild(rowElement)
+            }
+        }
 
         table.appendChild(innertable)
 
@@ -83,7 +83,7 @@ Module.register("MMM-HK-Observatory", {
 
         // Click event: Click table to display the forcast out of the maxForecast
         table.addEventListener("click", function() {
-			const innertabletrElement = this.getElementsByTagName("tr");
+            const innertabletrElement = this.getElementsByTagName("tr");
             // If all 9-day forecast are displayed --> Display the default number of forecast (maxForecast)
             if (maxforecastnumCopy == 9){
                 maxforecastnumCopy = maxforecastnum;
@@ -98,7 +98,7 @@ Module.register("MMM-HK-Observatory", {
                     break;
                 }
             }
-		})
+        })
 
         // Return the wrapper to the dom.
         return wrapper;
@@ -168,8 +168,8 @@ Module.register("MMM-HK-Observatory", {
 
         // Wind & general Weather description
         const weather = document.createElement("td");
-		weather.className = "weatherData";
-		weather.style.cssText = "text-align: left";
+        weather.className = "weatherData";
+        weather.style.cssText = "text-align: left";
         weather.innerHTML = data.forecastWind + "<br />" + data.forecastWeather;
 
 
@@ -179,7 +179,7 @@ Module.register("MMM-HK-Observatory", {
         tableDataRow.appendChild(weather);
 
         // Row content is hidded by default
-		tableDataRow.style.display = "none";
+        tableDataRow.style.display = "none";
 
         return tableDataRow
     },
