@@ -29,16 +29,14 @@ Add the code below to the modules array in the `config/config.js` file:
 ````javascript
     modules: [
         {
-            {
-                module: "MMM-HK-Observatory",
-                header: "MMM-HK-Observatory",
-                position: "top_right",
-                config: {
-                    animationSpeed: 2000,
-                    updateInterval: 600000,
-                    maxForecast: 4,
-                    showFooter: true,
-                }
+            module: "MMM-HK-Observatory",
+            header: "MMM-HK-Observatory",
+            position: "top_right",
+            config: {
+                animationSpeed: 2000,
+                updateInterval: 600000,
+                maxForecast: 4,
+                showFooter: true,
             }
         }
     ]
