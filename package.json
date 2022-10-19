@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/Infin1te2021/MMM-HK-Observatory#readme",
   "dependencies": {
+    "cylon-firmata": "^0.24.0",
+    "cylon-gpio": "^0.30.1",
+    "cylon-i2c": "^0.26.1",
+    "cylon-leapmotion": "^0.21.0",
     "request": "^2.88.2"
   }
 }

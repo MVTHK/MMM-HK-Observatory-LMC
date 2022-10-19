@@ -1,14 +1,25 @@
-Module.register("MMM-HK-Observatory", {
+Module.register("MMM-HK-Observatory-LMC", {
 
     weatherProvider: "HKO",
     // Set the default config properties that is specific to this provider
     defaults: {
-        header: "MMM-HK-Observatory",
+        header: "MMM-HK-Observatory-LMC",
         animationSpeed: 2000, // 2 * 1000 --> every 1 minute
         updateInterval: 600000, // 10 * 60 * 1000 --> every 10 minute
         showFooter: true,
         maxForecast: 4,
+        watchGestureUp: true,
+        watchGestureDown: true,
+        watchGestureLeft: true,
+        watchGestureRight: true,
+        watchGestureForward: true,
+        watchGestureBack: true,
+        orientation: 'up'
     },
+
+    currentPage: 0,
+    lastGesture: 'LEAP_MOTION_HAND_MISSING',
+    gesture: 'LEAP_MOTION_HAND_MISSING',
 
     start: function() {
         Log.info("Start module: " + this.name);
@@ -18,7 +29,7 @@ Module.register("MMM-HK-Observatory", {
     },
 
     getStyles: function() {
-        return["MMM-HK-Observatory.css", "font-awesome.css"];
+        return["MMM-HK-Observatory-LMC.css", "font-awesome.css"];
     },
 
     getHeader: function() {
@@ -32,8 +43,8 @@ Module.register("MMM-HK-Observatory", {
     getDom: function () {
         const self = this;
         const wrapper = document.createElement("div");
-        wrapper.className = "MMM-HKO";
-        wrapper.id = "wrapper";
+        wrapper.id = 'MMM-HKO';
+        wrapper.className = this.gesture.toLowerCase();
 
         if (!this.loaded) {
             wrapper.innerHTML ="LOADING";
@@ -195,9 +206,27 @@ Module.register("MMM-HK-Observatory", {
         footerRow.appendChild(footer);
 
         return footerRow;
-        },
+    },
+
+    updateStatus: function() {
+        document.getElementById('MMM-HKO').className = this.gesture.toLowerCase();
+    },
+
+    notificationReceived: function(notification) {
+        if (notification === 'LEAP_MOTION_SWIPE_RIGHT') {
+            console.log("page need to change to 1")
+            this.sendNotification("PAGE_CHANGED", 1);
+        }
+        else if (notification === 'LEAP_MOTION_SWIPE_LEFT') {
+            console.log("page need to change to 0")
+            this.sendNotification("PAGE_CHANGED", 0);
+        }
+    },
 
     socketNotificationReceived: function(notification, payload) {
+        var self = this;
+        var timer = null;
+
         if (notification === "DATA") {
             var animationSpeed = this.config.animationSpeed;
             if (this.loaded) {
@@ -206,6 +235,20 @@ Module.register("MMM-HK-Observatory", {
             this.fetchedData = payload;
             this.loaded = true;
             this.updateDom(animationSpeed);
+
+        } else if (notification === 'LEAP_MOTION_GESTURE' && typeof payload === 'string' && payload !== this.lastGesture){
+            this.sendNotification(payload);
+            this.lastGesture = this.gesture;
+            this.gesture = payload;
+            this.updateStatus();
+
+            clearTimeout(timer);
+            timer = setTimeout(function() {
+                self.sendNotification('LEAP_MOTION_HAND_MISSING');
+                self.lastGesture = self.gesture;
+                self.gesture = 'LEAP_MOTION_HAND_MISSING';
+                self.updateStatus();
+            }, 1000)
 
         } else if (notification === "ERROR") {
                 // TODO: Update front-end to display specific error.

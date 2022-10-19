@@ -1,4 +1,4 @@
-# MMM-HK-Observatory
+# MMM-HK-Observatory-LMC
 
 <p style="text-align: center">
     <a href="https://choosealicense.com/licenses/apache-2.0/"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
@@ -7,6 +7,8 @@
 A module for [MagicMirror](https://github.com/MichMich/MagicMirror) displaying Hong Kong 9-day Weather Forecast.
 
 Based on [Hong Kong Observatory Open Data API](https://www.hko.gov.hk/en/weatherAPI/doc/files/HKO_Open_Data_API_Documentation.pdf).
+
+Many thanks to [Peter Schmalfeldt](https://github.com/manifestinteractive) who provide the [MMM-Leap-Motion](https://github.com/manifestinteractive/MMM-Leap-Motion) module.
 
 ## Screenshots
 | ![screenshot1](img/readme/default.PNG)| ![screenshot2](img/readme/9-day%20forecast.PNG) |
@@ -17,8 +19,8 @@ Based on [Hong Kong Observatory Open Data API](https://www.hko.gov.hk/en/weather
 
 ````javascript
 cd modules
-git clone https://github.com/Infin1te2021/MMM-HK-Observatory.git
-cd MMM-HK-Observatory
+git clone https://github.com/MVTHK/MMM-HK-Observatory-LMC.git
+cd MMM-HK-Observatory-LMC
 npm install
 ````
 
@@ -29,14 +31,21 @@ Add the code below to the modules array in the `config/config.js` file:
 ````javascript
     modules: [
         {
-            module: "MMM-HK-Observatory",
-            header: "MMM-HK-Observatory",
+            module: "MMM-HK-Observatory-LMC",
+            header: "MMM-HK-Observatory-LMC",
             position: "top_right",
             config: {
                 animationSpeed: 2000,
                 updateInterval: 600000,
                 maxForecast: 4,
                 showFooter: true,
+                watchGestureUp: true,
+                watchGestureDown: true,
+                watchGestureLeft: true,
+                watchGestureRight: true,
+                watchGestureForward: true,
+                watchGestureBack: true,
+                orientation: 'up'
             }
         }
     ]
@@ -44,10 +53,25 @@ Add the code below to the modules array in the `config/config.js` file:
 
 
 ## Configuration options
-| Option           | Type | Default | Description                                                             |
-|------------------| --- | --- |-------------------------------------------------------------------------|
-| `animationSpeed` | `int` | `2000` | Time to display when startup [milliseconds] (2 second )                 |
-| `updateInterval` | `int` | `600000` | Frequency to update the forecast [milliseconds] (10 minutes )           |
-| `maxForecast` | `int` | `4` | The maximum number of weather forecast day will be displayed by default |
-| `showFooter` | `boolean` | `true` | Last update time                                                        |
+| Option                                                                                                                                       | Type      | Default  | Description                                                              |
+|----------------------------------------------------------------------------------------------------------------------------------------------|-----------|----------|--------------------------------------------------------------------------|
+| `animationSpeed`                                                                                                                             | `int`     | `2000`   | Time to display when startup [milliseconds] (2 second )                  |
+| `updateInterval`                                                                                                                             | `int`     | `600000` | Frequency to update the forecast [milliseconds] (10 minutes )            |
+| `maxForecast`                                                                                                                                | `int`     | `4`      | The maximum number of weather forecast day will be displayed by default  |
+| `showFooter`                                                                                                                                 | `boolean` | `true`   | Last update time                                                         |
+| `watchGestureUp`<br/>`watchGestureDown`<br/>`watchGestureLeft`<br/>`watchGestureRight`<br/>`watchGestureForward`<br/>`watchGestureBack`<br/> | `boolean` | `true`   | Detect hand up, down, swipe left, swip right, forward or back            |
+| `orientation`                                                                                                                                | `string`  | `up`     | Leap Motion Controller orientation. It is allowed to change to `forward` |
 
+
+## Ways to change page
+
+Add the code to the end of `notificationReceived` function in [MMM-page-indicator](https://github.com/edward-shen/MMM-page-indicator) `MMM-page-indicator.js`
+
+````javascript
+} else if (notification === 'LEAP_MOTION_SWIPE_RIGHT') {
+    this.sendNotification("PAGE_CHANGED", this.curPage + 1);
+} else if (notification === 'LEAP_MOTION_SWIPE_LEFT') {
+    this.sendNotification("PAGE_CHANGED", this.curPage - 1);
+````
+
+Or any other command in that module you like.
