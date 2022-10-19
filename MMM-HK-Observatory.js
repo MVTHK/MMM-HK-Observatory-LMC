@@ -4,8 +4,8 @@ Module.register("MMM-HK-Observatory", {
     // Set the default config properties that is specific to this provider
     defaults: {
         header: "MMM-HK-Observatory",
-        reloadInterval: 1 * 60 * 1000, //every 1 minute
-        updateInterval: 300000, // every 10 minute
+        animationSpeed: 2000, // 2 * 1000 --> every 1 minute
+        updateInterval: 600000, // 10 * 60 * 1000 --> every 10 minute
         showFooter: true,
         maxForecast: 4,
     },
@@ -47,6 +47,7 @@ Module.register("MMM-HK-Observatory", {
             return wrapper;
         }
 
+        // Create weatherForecastTable
         const table = document.createElement("div");
         table.className = "weatherForecastTable";
         table.appendChild(self.createIntro());
@@ -59,6 +60,7 @@ Module.register("MMM-HK-Observatory", {
         innertable.appendChild(self.createHeader());
 
 		const maxforecastnum = this.config.maxForecast
+        let maxforecastnumCopy = maxforecastnum
 
 		// Append row element --> Forecast, Temp&Hum, Description
 		for (var i = 0; i < this.fetchedData.weatherForecast.length; i++){
@@ -79,11 +81,23 @@ Module.register("MMM-HK-Observatory", {
 
         wrapper.appendChild(table);
 
+        // Click event: Click table to display the forcast out of the maxForecast
         table.addEventListener("click", function() {
 			const innertabletrElement = this.getElementsByTagName("tr");
-			for (var i = maxforecastnum + 1; i < innertabletrElement.length; i++) {
-				innertabletrElement[i].style.display = innertabletrElement[i].style.display ? "" : "none";
-			}
+            // If all 9-day forecast are displayed --> Display the default number of forecast (maxForecast)
+            if (maxforecastnumCopy == 9){
+                maxforecastnumCopy = maxforecastnum;
+                for (var i = maxforecastnumCopy + 1; i < innertabletrElement.length - 1; i++) {
+                    innertabletrElement[i].style.display = innertabletrElement[i].style.display ? "" : "none";
+                }
+                maxforecastnumCopy = maxforecastnum;
+            }else{
+                for (var i = maxforecastnumCopy + 1; i < innertabletrElement.length - 1; i++) {
+                    innertabletrElement[i].style.display = innertabletrElement[i].style.display ? "" : "none";
+                    maxforecastnumCopy += 1;
+                    break;
+                }
+            }
 		})
 
         // Return the wrapper to the dom.
@@ -102,22 +116,22 @@ Module.register("MMM-HK-Observatory", {
         const tableHeader = document.createElement("tr");
         tableHeader.className = "headerTableHeaderRow";
 
-        // Forecast date
+        // Forecast date Header
         const forecastDateHeader = document.createElement("th");
         forecastDateHeader.className = "forecastDateHeader";
         forecastDateHeader.innerHTML = "Forecast Date";
 
-        // Forecast Icon
+        // Forecast Icon Header
         const forecastIconHeader = document.createElement("th");
         forecastIconHeader.className = "forecastIconHeader";
         forecastIconHeader.innerHTML = "";
 
-        // Forecast Temperature & Humidity
+        // Forecast Temperature & Humidity Header
         const forecastTempHumiHeader = document.createElement("th");
         forecastTempHumiHeader.className = "forecastTempHumiHeader";
         forecastTempHumiHeader.innerHTML = "Temperature & Humidity";
 
-        // Forecast Weather General Description
+        // Forecast Weather General Description Header
         const forecastWeatherDescriptionHeader = document.createElement("th");
         forecastWeatherDescriptionHeader.className = "ForecastWeatherHeader";
         forecastWeatherDescriptionHeader.innerHTML = "Forecast Description";
@@ -135,20 +149,24 @@ Module.register("MMM-HK-Observatory", {
         const tableDataRow = document.createElement("tr");
         tableDataRow.className = "tableDataRow";
 
+        // Date
         const date = document.createElement("td");
         date.className = "dateData";
         date.innerHTML = moment(data.forecastDate).format("ll");
 
+        // Forecast Icon
         const icon = document.createElement("td");
         icon.className = "iconData";
         let srclist = `https://www.hko.gov.hk/images/HKOWxIconOutline/pic${data.ForecastIcon}.png`
         icon.innerHTML = `<img src=\ ${srclist} width=\"49px\" height=\"49px\">`;
 
+        // Celsius & Humidity
         const temphumi = document.createElement("td");
         temphumi.className = "temphumiData";
         temphumi.innerHTML = data.forecastMintemp.value + "-" + data.forecastMaxtemp.value + "°C" + "<br />" +
                                                     data.forecastMinrh.value + "-" + data.forecastMaxrh.value + "%";
 
+        // Wind & general Weather description
         const weather = document.createElement("td");
 		weather.className = "weatherData";
 		weather.style.cssText = "text-align: left";
@@ -159,7 +177,10 @@ Module.register("MMM-HK-Observatory", {
         tableDataRow.appendChild(icon);
         tableDataRow.appendChild(temphumi);
         tableDataRow.appendChild(weather);
+
+        // Row content is hidded by default
 		tableDataRow.style.display = "none";
+
         return tableDataRow
     },
 
@@ -190,5 +211,4 @@ Module.register("MMM-HK-Observatory", {
                 // TODO: Update front-end to display specific error.
         }
     },
-
 });

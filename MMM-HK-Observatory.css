@@ -8,15 +8,42 @@
 }
 
 .MMM-HKO .introSituation{
+    width: 600px;
     text-align: left;
 }
 
 .MMM-HKO .headerTableHeaderRow {
-	position: static;
     text-align: center;
     border-top: 1px solid var(--color-text-dimmed);
 }
 
+.MMM-HKO .forecastDateHeader {
+    width: 94px;
+}
+
+.MMM-HKO .dateData {
+    text-align: center;
+}
+
+.MMM-HKO .forecastIconHeader {
+    width: 50px;
+}
+
+.MMM-HKO .forecastTempHumiHeader {
+    width: 160px;
+}
+
+.MMM-HKO .temphumiData {
+    text-align: center;
+}
+
+.MMM-HKO .ForecastWeatherHeader{
+    width: 286px;
+}
+
+.MMM-HKO .weatherData {
+    font-size: 14px;
+}
 
 .MMM-HKO .footer {
     text-align: right;
