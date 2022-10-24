@@ -141,8 +141,8 @@ module.exports = NodeHelper.create({
                                 self.sendSocketNotification('LEAP_MOTION_GESTURE', 'LEAP_MOTION_SWIPE_FORWARD');
                                 lastGesture = direction;
                             }   else if (config.watchGestureBack && direction === 'back') {
-                            self.sendSocketNotification('LEAP_MOTION_GESTURE', 'LEAP_MOTION_SWIPE_BACK');
-                            lastGesture = direction;
+                                self.sendSocketNotification('LEAP_MOTION_GESTURE', 'LEAP_MOTION_SWIPE_BACK');
+                                lastGesture = direction;
                             }
                         }
                     }

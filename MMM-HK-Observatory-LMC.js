@@ -71,7 +71,7 @@ Module.register("MMM-HK-Observatory-LMC", {
         innertable.appendChild(self.createHeader());
 
         const maxforecastnum = this.config.maxForecast
-        let maxforecastnumCopy = maxforecastnum
+        self.maxforecastnumCopy = maxforecastnum
 
         // Append row element --> Forecast, Temp&Hum, Description
         for (var i = 0; i < this.fetchedData.weatherForecast.length; i++){
@@ -94,23 +94,17 @@ Module.register("MMM-HK-Observatory-LMC", {
 
         // Click event: Click table to display the forcast out of the maxForecast
         table.addEventListener("click", function() {
-            const innertabletrElement = this.getElementsByTagName("tr");
+            self.innertabletrElement = this.getElementsByTagName("tr");
             // If all 9-day forecast are displayed --> Display the default number of forecast (maxForecast)
-            if (maxforecastnumCopy == 9){
+            if (self.maxforecastnumCopy == 9){
                 maxforecastnumCopy = maxforecastnum;
-                for (var i = maxforecastnumCopy + 1; i < innertabletrElement.length - 1; i++) {
-                    innertabletrElement[i].style.display = innertabletrElement[i].style.display ? "" : "none";
-                }
-                maxforecastnumCopy = maxforecastnum;
+                self.returnMax(self.innertabletrElement, maxforecastnumCopy)
+                self.maxforecastnumCopy = maxforecastnum;
             }else{
-                for (var i = maxforecastnumCopy + 1; i < innertabletrElement.length - 1; i++) {
-                    innertabletrElement[i].style.display = innertabletrElement[i].style.display ? "" : "none";
-                    maxforecastnumCopy += 1;
-                    break;
-                }
+                self.displayNext(self.innertabletrElement, self.maxforecastnumCopy+ 1)
+                self.maxforecastnumCopy += 1
             }
         })
-
         // Return the wrapper to the dom.
         return wrapper;
     },
@@ -212,14 +206,26 @@ Module.register("MMM-HK-Observatory-LMC", {
         document.getElementById('MMM-HKO').className = this.gesture.toLowerCase();
     },
 
-    notificationReceived: function(notification) {
-        if (notification === 'LEAP_MOTION_SWIPE_RIGHT') {
-            console.log("page need to change to 1")
-            this.sendNotification("PAGE_CHANGED", 1);
+    displayNext: function(element, updatelen) {
+        for (var i = updatelen; i < element.length - 1; i++) {
+            element[i].style.display = element[i].style.display ? "" : "none";
+            updatelen += 1
+            break
         }
-        else if (notification === 'LEAP_MOTION_SWIPE_LEFT') {
-            console.log("page need to change to 0")
-            this.sendNotification("PAGE_CHANGED", 0);
+    },
+
+    displayBefore: function(element, updatelen) {
+        for (var i = updatelen; i < element.length - 1; i++) {
+            element[i-1].style.display = element[i-1].style.display ? "" : "none";
+            updatelen -= 1
+            console.log(updatelen)
+            return updatelen;
+        }
+    },
+
+    returnMax: function(element, updatelen) {
+        for (var i = updatelen + 1; i < element.length - 1; i++) {
+            element[i].style.display = element[i].style.display ? "" : "none";
         }
     },
 
@@ -235,13 +241,18 @@ Module.register("MMM-HK-Observatory-LMC", {
             this.fetchedData = payload;
             this.loaded = true;
             this.updateDom(animationSpeed);
-
         } else if (notification === 'LEAP_MOTION_GESTURE' && typeof payload === 'string' && payload !== this.lastGesture){
             this.sendNotification(payload);
             this.lastGesture = this.gesture;
             this.gesture = payload;
             this.updateStatus();
-
+            self.innertabletrElement = document.getElementsByClassName("tableDataRow");
+            if (payload === 'LEAP_MOTION_SWIPE_DOWN') {
+                self.displayNext(self.innertabletrElement, self.maxforecastnumCopy+ 1)
+                console.log(self.maxforecastnumCopy);
+                self.maxforecastnumCopy += 1
+                return
+            }
             clearTimeout(timer);
             timer = setTimeout(function() {
                 self.sendNotification('LEAP_MOTION_HAND_MISSING');
@@ -249,7 +260,6 @@ Module.register("MMM-HK-Observatory-LMC", {
                 self.gesture = 'LEAP_MOTION_HAND_MISSING';
                 self.updateStatus();
             }, 1000)
-
         } else if (notification === "ERROR") {
                 // TODO: Update front-end to display specific error.
         }
