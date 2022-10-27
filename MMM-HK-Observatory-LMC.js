@@ -94,14 +94,14 @@ Module.register("MMM-HK-Observatory-LMC", {
 
         // Click event: Click table to display the forcast out of the maxForecast
         table.addEventListener("click", function() {
-            self.innertabletrElement = this.getElementsByTagName("tr");
+            self.innertabletrElement = this.getElementsByClassName("tableDataRow");
             // If all 9-day forecast are displayed --> Display the default number of forecast (maxForecast)
-            if (self.maxforecastnumCopy == 9){
+            if (self.maxforecastnumCopy >= 9){
                 maxforecastnumCopy = maxforecastnum;
-                self.returnMax(self.innertabletrElement, maxforecastnumCopy)
+                self.returnMax(self.innertabletrElement, maxforecastnumCopy - 1);
                 self.maxforecastnumCopy = maxforecastnum;
             }else{
-                self.displayNext(self.innertabletrElement, self.maxforecastnumCopy+ 1)
+                self.displayNext(self.innertabletrElement, self.maxforecastnumCopy);
                 self.maxforecastnumCopy += 1
             }
         })
@@ -206,16 +206,17 @@ Module.register("MMM-HK-Observatory-LMC", {
         document.getElementById('MMM-HKO').className = this.gesture.toLowerCase();
     },
 
+    // Display the next day only
     displayNext: function(element, updatelen) {
-        for (var i = updatelen; i < element.length - 1; i++) {
+        for (var i = updatelen; i < element.length; i++) {
             element[i].style.display = element[i].style.display ? "" : "none";
-            updatelen += 1
             break
         }
     },
 
+    // Not used yet but to be used in the near feature
     displayBefore: function(element, updatelen) {
-        for (var i = updatelen; i < element.length - 1; i++) {
+        for (var i = updatelen; i < element.length; i++) {
             element[i-1].style.display = element[i-1].style.display ? "" : "none";
             updatelen -= 1
             console.log(updatelen)
@@ -224,7 +225,7 @@ Module.register("MMM-HK-Observatory-LMC", {
     },
 
     returnMax: function(element, updatelen) {
-        for (var i = updatelen + 1; i < element.length - 1; i++) {
+        for (var i = updatelen + 1; i < element.length; i++) {
             element[i].style.display = element[i].style.display ? "" : "none";
         }
     },
@@ -246,12 +247,19 @@ Module.register("MMM-HK-Observatory-LMC", {
             this.lastGesture = this.gesture;
             this.gesture = payload;
             this.updateStatus();
-            self.innertabletrElement = document.getElementsByClassName("tableDataRow");
+
+            var innertabletrElement = document.getElementsByClassName("tableDataRow");
+
+            // Gesture control the table to display the remaining days (same effect with click table)
             if (payload === 'LEAP_MOTION_SWIPE_DOWN') {
-                self.displayNext(self.innertabletrElement, self.maxforecastnumCopy+ 1)
-                console.log(self.maxforecastnumCopy);
-                self.maxforecastnumCopy += 1
-                return
+                if (self.maxforecastnumCopy >= 9){
+                    self.maxforecastnumCopy = this.config.maxForecast;
+                    self.returnMax(innertabletrElement, this.config.maxForecast - 1);
+                    self.maxforecastnumCopy = this.config.maxForecast;
+                } else {
+                    self.displayNext(innertabletrElement, self.maxforecastnumCopy);
+                    self.maxforecastnumCopy += 1
+                }
             }
             clearTimeout(timer);
             timer = setTimeout(function() {

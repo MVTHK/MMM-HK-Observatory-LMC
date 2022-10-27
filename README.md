@@ -11,7 +11,7 @@ Based on [Hong Kong Observatory Open Data API](https://www.hko.gov.hk/en/weather
 Many thanks to [Peter Schmalfeldt](https://github.com/manifestinteractive) who provide the [MMM-Leap-Motion](https://github.com/manifestinteractive/MMM-Leap-Motion) module.
 
 ## Screenshots
-| ![screenshot1](img/readme/default.PNG)| ![screenshot2](img/readme/9-day%20forecast.PNG) |
+| ![screenshot1](readme/img/default.PNG)| ![screenshot2](readme/img/9-day%20forecast.PNG) |
 | --- |-------------------------------------------------|
 | Default | 9-day Forecast                                  |
 
@@ -69,9 +69,26 @@ Add the code to the end of `notificationReceived` function in [MMM-page-indicato
 
 ````javascript
 } else if (notification === 'LEAP_MOTION_SWIPE_RIGHT') {
+    if (this.curPage === this.config.pages){
+        return
+    }
     this.sendNotification("PAGE_CHANGED", this.curPage + 1);
 } else if (notification === 'LEAP_MOTION_SWIPE_LEFT') {
+    if (this.curPage === 0){
+        return
+    }
     this.sendNotification("PAGE_CHANGED", this.curPage - 1);
 ````
 
-Or any other command in that module you like.
+Or any other commands in that module you like.
+
+## Demonstration
+
+View demo on [YouTube](https://youtu.be/fXoWLlfhFok).
+## Warning !
+
+Please remember to kill the current terminal and start a new server if you have modified the code, otherwise the function will run double times.
+
+| ![screenshot3](readme/img/error.PNG) |
+|----------------------------------|
+| Error occurred                   |
