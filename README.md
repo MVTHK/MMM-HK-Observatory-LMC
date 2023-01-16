@@ -85,6 +85,13 @@ Or any other commands in that module you like.
 ## Demonstration
 
 View demo on [YouTube](https://youtu.be/fXoWLlfhFok).
+
+## ERR!
+
+````blog
+npm ERR! command C:\WINDOWS\system32\cmd.exe /d /s /c prebuild-install --tag-prefix @serialport/bindings@ || node-gyp rebuild
+````
+You need to install the latest version of Visual Studio including the "Desktop development with C++" workload
 ## Warning !
 
 Please remember to kill the current terminal and start a new server if you have modified the code, otherwise the function will run double times.
