@@ -8,6 +8,7 @@ Module.register("MMM-HK-Observatory-LMC", {
         updateInterval: 600000, // 10 * 60 * 1000 --> every 10 minute
         showFooter: true,
         maxForecast: 4,
+        record:true,
         watchGestureUp: true,
         watchGestureDown: true,
         watchGestureLeft: true,
@@ -242,6 +243,7 @@ Module.register("MMM-HK-Observatory-LMC", {
             this.fetchedData = payload;
             this.loaded = true;
             this.updateDom(animationSpeed);
+
         } else if (notification === 'LEAP_MOTION_GESTURE' && typeof payload === 'string' && payload !== this.lastGesture){
             this.sendNotification(payload);
             this.lastGesture = this.gesture;
@@ -268,6 +270,27 @@ Module.register("MMM-HK-Observatory-LMC", {
                 self.gesture = 'LEAP_MOTION_HAND_MISSING';
                 self.updateStatus();
             }, 1000)
+
+        } else if (notification === "RAW_GRAPH_DATA"){
+            this.rawData = payload;
+            this.sendNotification('LMC', {
+                thumbx: this.rawData.thumbx,
+                thumby: this.rawData.thumby,
+                thumbz: this.rawData.thumbz,
+                index_fingerx: this.rawData.index_fingerx,
+                index_fingery: this.rawData.index_fingery,
+                index_fingerz: this.rawData.index_fingerz,
+                middle_fingerx : this.rawData.middle_fingerx,
+                middle_fingery : this.rawData.middle_fingery,
+                middle_fingerz : this.rawData.middle_fingerz,
+                ring_fingerx : this.rawData.ring_fingerx,
+                ring_fingery : this.rawData.ring_fingery,
+                ring_fingerz : this.rawData.ring_fingerz,
+                little_fingerx : this.rawData.little_fingerx,
+                little_fingery : this.rawData.little_fingery,
+                little_fingerz : this.rawData.little_fingerz,
+            })
+
         } else if (notification === "ERROR") {
                 // TODO: Update front-end to display specific error.
         }
