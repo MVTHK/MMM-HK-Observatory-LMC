@@ -39,6 +39,7 @@ Add the code below to the modules array in the `config/config.js` file:
                 updateInterval: 600000,
                 maxForecast: 4,
                 showFooter: true,
+                record:false,
                 watchGestureUp: true,
                 watchGestureDown: true,
                 watchGestureLeft: true,

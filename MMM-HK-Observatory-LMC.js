@@ -231,6 +231,28 @@ Module.register("MMM-HK-Observatory-LMC", {
         }
     },
 
+	gestureDisable: function() {
+        var self = this;
+        self.config.watchGestureUp = false;
+        self.config.watchGestureDown = false;
+        self.config.watchGestureLeft = false;
+        self.config.watchGestureRight = false;
+        self.config.watchGestureForward = false;
+        self.config.watchGestureBack = false;
+        return self.config;
+    },
+
+    gestureEnable: function() {
+        var self = this;
+        self.config.watchGestureUp = true;
+        self.config.watchGestureDown = true;
+        self.config.watchGestureLeft = true;
+        self.config.watchGestureRight = true;
+        self.config.watchGestureForward = true;
+        self.config.watchGestureBack = true;
+        return self.config;
+    },
+
     socketNotificationReceived: function(notification, payload) {
         var self = this;
         var timer = null;
@@ -295,4 +317,15 @@ Module.register("MMM-HK-Observatory-LMC", {
                 // TODO: Update front-end to display specific error.
         }
     },
+
+    notificationReceived: function(notification, payload, sender) {
+        if (notification === "3D-Plot-Record-CMD") {
+            const self = this;
+            self.gestureDisable();
+			console.log(self.config);
+			self.sendSocketNotification("SET_CONFIG", self.config);
+            console.log("Gesture Disabled");
+        }
+    },
+
 });
